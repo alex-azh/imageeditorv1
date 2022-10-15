@@ -19,7 +19,7 @@ def I_Method(name: str):
 
 
 def GreyWorld(imageName):
-    "GW - Автоматический баланс белого посредством алгоритма GreyWorld"
+    "GW - Автоматический баланс белого посредством алгоритма GreyWorld. Неверный метод."
     image = cv2.imread(imageName)
     b, g, r = cv2.split(image)
     # avg calculating...
@@ -37,6 +37,25 @@ def GreyWorld(imageName):
     image = cv2.merge([b, g, r]).astype(np.uint8)
     return image
 
+def grayworld(imageName):
+    "Новый - правильный метод."
+    img = cv2.imread(imageName)
+    height,width = img.shape[:2]
+    n2=height*width
+    g = img[:, :, 0]
+    b = img[:, :, 1]
+    r = img[:, :, 2]
+    Ravg=np.sum(r)/n2
+    Bavg=np.sum(b)/n2
+    Gavg=np.sum(g)/n2
+    alfa=Gavg/Ravg
+    betta=Gavg/Bavg
+    dst = np.zeros((height,width,3),dtype=np.float64)
+    dst[:,:,0] = np.multiply(betta,img[:,:,0])
+    dst[:,:,1] = np.multiply(1,img[:,:,1])
+    dst[:,:,2] = np.multiply(alfa,img[:,:,2])
+    dst = np.where(dst>255.0,255, dst).astype(np.uint8)
+    return dst
 
 def HistSplit(pictureName):
     "QRGB - Эквализация гистограммы (для каждого цветового слоя независимо)"

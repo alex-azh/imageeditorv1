@@ -56,8 +56,8 @@ def ApplyI():
 
 def ApplyGreyWorld():
     global labelImg2, save2Image, applyMethod
-    from program import GreyWorld
-    save2Image = Image.fromarray(cv2.cvtColor(GreyWorld(imgOriginalName), cv2.COLOR_BGR2RGB))
+    from program import GreyWorld,grayworld
+    save2Image = Image.fromarray(cv2.cvtColor(grayworld(imgOriginalName), cv2.COLOR_BGR2RGB))
     newImage = save2Image.resize((300, 300))
     photo = ImageTk.PhotoImage(newImage)
     if 'labelImg2' in globals():
